@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
 import startCase from "lodash.startcase";
+import PropTypes from "prop-types";
 
 export default function TH({ headers }) {
   return (
-    <thead className="border border-gray-500 bg-gray-300 text-gray-700">
+    <thead>
       <tr>
         {headers.map((header, index) => (
-          <th key={index} className="p-4 text-left ">
+          <th key={index} className="bg-slate-50 text-left text-slate-400">
             {startCase(header)}
           </th>
         ))}
