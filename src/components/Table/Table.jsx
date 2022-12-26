@@ -1,16 +1,12 @@
 import PropTypes from "prop-types";
+import TBody from "./TBody";
 import TH from "./TH";
-import TR from "./TR";
 
 export default function Table({ headers, data }) {
   return (
-    <table>
+    <table className="container mx-auto max-w-max table-auto">
       <TH headers={headers} />
-      <tbody>
-        {data.map((dataRow, index) => (
-          <TR key={index} dataRow={dataRow} />
-        ))}
-      </tbody>
+      <TBody data={data} />
     </table>
   );
 }
