@@ -5,7 +5,8 @@ export default function Users() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
   const { users } = useLoaderData();
 
-  const usersData = users.map(({ fullName, username }) => ({
+  const usersData = users.map(({ id, fullName, username }) => ({
+    id,
     fullName,
     username,
   }));
