@@ -16,6 +16,8 @@ export default function usePagination(data, itemsPerPage = 10) {
   const [pagination, dispatchPagination] = useReducer(reducer, {
     currentPage: 1,
     currentData: data.slice(0, itemsPerPage),
+    fullData: data,
+    itemsPerPage,
   });
 
   const maxPage = Math.ceil(data.length / itemsPerPage);

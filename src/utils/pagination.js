@@ -6,5 +6,5 @@ export const getCurrentData = (state, currentPage) => {
   const begin = (currentPage - 1) * state.itemsPerPage;
   const end = begin + state.itemsPerPage;
 
-  return state.data.slice(begin, end);
+  return state.fullData.slice(begin, end);
 };
