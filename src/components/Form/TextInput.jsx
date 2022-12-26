@@ -35,7 +35,7 @@ TextInput.defaultProps = {
 TextInput.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
-  pattern: PropTypes.string,
+  pattern: PropTypes.instanceOf(RegExp),
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   type: PropTypes.string,
