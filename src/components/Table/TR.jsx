@@ -4,7 +4,9 @@ export default function TR({ dataRow }) {
   return (
     <tr>
       {Object.values(dataRow).map((item, index) => (
-        <td key={index}>{item}</td>
+        <td key={index}>
+          {item.length > 16 ? item.substring(0, 16) + "..." : item}
+        </td>
       ))}
     </tr>
   );
