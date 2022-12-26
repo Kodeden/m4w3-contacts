@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  tfoot td {
+    @apply border-none;
+  }
+
   th,
   td {
     @apply border border-gray-200 py-3 pl-8;
