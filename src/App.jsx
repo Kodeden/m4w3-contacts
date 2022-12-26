@@ -3,7 +3,7 @@ import {
   createBrowserRouter,
   redirect,
 } from "react-router-dom";
-import Users from "./routes/Users";
+import Root from "./routes/Root";
 import apiService from "./services/api.service";
 
 const loadUsers = async () => {
@@ -14,7 +14,7 @@ const loadUsers = async () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Users />,
+    element: <Root />,
     loader: loadUsers,
   },
   {
