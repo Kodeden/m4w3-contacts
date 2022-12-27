@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import Root from "../routes/Root";
 import FAKE_USERS from "./fixtures/users.json";
-import { userEvent } from "@testing-library/user-event";
 
+// "fullName": "Lana Boyle V",
 const firstUser = FAKE_USERS[0];
 const firstUserPage2 = FAKE_USERS[10];
 
