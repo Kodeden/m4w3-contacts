@@ -3,7 +3,8 @@ import { getCurrentData, getCurrentPage } from "../utils/pagination";
 
 function reducer(state, action) {
   // Was the page number provided?
-  const currentPage = action.payload || getCurrentPage(state, action.type);
+  const currentPage =
+    action.payload || getCurrentPage(state.currentPage, action.type);
   const currentData = getCurrentData(state, currentPage);
 
   switch (action.type) {
@@ -27,7 +28,7 @@ export default function usePagination(data, itemsPerPage = 10) {
   const [pagination, dispatchPagination] = useReducer(reducer, {
     currentPage: 1,
     currentData: data.slice(0, itemsPerPage),
-    fullData: data,
+    data,
     itemsPerPage,
   });
 
