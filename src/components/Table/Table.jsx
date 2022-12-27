@@ -17,25 +17,18 @@ export default function Table({ headers, data }) {
       <tfoot>
         <tr>
           <td colSpan={headers.length} className="text-center [&>*]:mx-4">
-            <button
-              className={isFirstPage ? "text-gray-500" : "text-blue-500"}
-              disabled={isFirstPage}
-              onClick={() => dispatchPagination({ type: "PREV" })}
-            >
-              Previous
-            </button>
-
-            <button
-              className={isLastPage ? "text-gray-500" : "text-blue-500"}
-              disabled={isLastPage}
-              onClick={() => dispatchPagination({ type: "NEXT" })}
-            >
-              Next
-            </button>
-
-            <span>
-              {currentPage} / {maxPage}
-            </span>
+            <input
+              className="w-24"
+              type="number"
+              value={currentPage}
+              onChange={() => {
+                const page = Number(event.target.value);
+                if (page >= 1 && page <= maxPage) {
+                  dispatchPagination({ type: "GOTO", payload: page });
+                }
+              }}
+            />
+            &nbsp;/&nbsp;{maxPage}
           </td>
         </tr>
       </tfoot>
