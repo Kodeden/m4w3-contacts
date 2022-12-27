@@ -22,7 +22,7 @@ export default function Table({ headers, data }) {
               className="w-24"
               type="number"
               value={currentPage}
-              onChange={() => {
+              onInput={() => {
                 const page = Number(event.target.value);
                 if (page >= 1 && page <= maxPage) {
                   dispatchPagination({ type: "GOTO", payload: page });
