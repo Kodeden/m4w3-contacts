@@ -18,9 +18,9 @@ export default function Table({ headers, data }) {
             </label>
             <input
               id="page"
-              className="w-24"
+              className="w-24 font-medium text-sky-700"
               type="number"
-              defaultValue="1"
+              placeholder="1"
               onInput={() => {
                 const page = Number(event.target.value);
                 if (page >= 1 && page <= maxPage) {
