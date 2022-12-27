@@ -14,7 +14,11 @@ export default function Table({ headers, data }) {
       <tfoot>
         <tr>
           <td colSpan={headers.length} className="text-center [&>*]:mx-4">
+            <label htmlFor="page" className="sr-only">
+              Page
+            </label>
             <input
+              id="page"
               className="w-24"
               type="number"
               value={currentPage}
