@@ -4,8 +4,7 @@ import TBody from "./TBody";
 import TH from "./TH";
 
 export default function Table({ headers, data }) {
-  const { currentData, currentPage, maxPage, dispatchPagination } =
-    usePagination(data);
+  const { currentData, maxPage, dispatchPagination } = usePagination(data);
 
   return (
     <table className="container mx-auto max-w-max table-auto">
@@ -21,11 +20,11 @@ export default function Table({ headers, data }) {
               id="page"
               className="w-24"
               type="number"
-              value={currentPage}
+              defaultValue="1"
               onInput={() => {
                 const page = Number(event.target.value);
                 if (page >= 1 && page <= maxPage) {
-                  dispatchPagination({ type: "GOTO", payload: page });
+                  dispatchPagination({ payload: page });
                 }
               }}
             />
