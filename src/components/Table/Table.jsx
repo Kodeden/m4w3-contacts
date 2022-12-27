@@ -7,9 +7,6 @@ export default function Table({ headers, data }) {
   const { currentData, currentPage, maxPage, dispatchPagination } =
     usePagination(data);
 
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === maxPage;
-
   return (
     <table className="container mx-auto max-w-max table-auto">
       <TH headers={headers} />
