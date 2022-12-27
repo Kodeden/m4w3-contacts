@@ -2,14 +2,25 @@ import { useReducer } from "react";
 import { getCurrentData, getCurrentPage } from "../utils/pagination";
 
 function reducer(state, action) {
-  const currentPage = getCurrentPage(state, action.type);
+  // Was the page number provided?
+  const currentPage = action.payload || getCurrentPage(state, action.type);
   const currentData = getCurrentData(state, currentPage);
 
-  return {
-    ...state,
-    currentPage,
-    currentData,
-  };
+  switch (action.type) {
+    case "GOTO":
+      return {
+        ...state,
+        currentData,
+        currentPage: action.payload,
+      };
+    case "NEXT":
+    case "PREV":
+      return {
+        ...state,
+        currentData,
+        currentPage,
+      };
+  }
 }
 
 export default function usePagination(data, itemsPerPage = 10) {
