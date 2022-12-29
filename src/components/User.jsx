@@ -10,7 +10,11 @@ export default function User() {
   return (
     <figure className="container mx-auto flex flex-col gap-y-4 rounded-md border bg-zinc-900 px-8 py-8 text-zinc-50 shadow-xl">
       <div className="flex items-center gap-x-4">
-        <img src={user.avatar} alt={user.fullName} className="rounded-full" />
+        <img
+          src={user.avatar}
+          alt={user.fullName}
+          className="h-32 w-32 rounded-full"
+        />
         <figcaption>
           <h2 className="text-2xl font-bold text-indigo-700">
             {user.fullName}
