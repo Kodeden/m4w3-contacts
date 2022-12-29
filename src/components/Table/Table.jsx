@@ -4,10 +4,10 @@ import TBody from "./TBody";
 import TH from "./TH";
 
 export default function Table() {
-  const { data } = useOutletContext();
-  const { currentData, maxPage, dispatchPagination } = usePagination(data);
+  const { tableData } = useOutletContext();
+  const { currentData, maxPage, dispatchPagination } = usePagination(tableData);
 
-  const headers = Object.keys(data[0]);
+  const headers = Object.keys(tableData[0]);
 
   return (
     <table className="container mx-auto max-w-max table-fixed md:table-auto">

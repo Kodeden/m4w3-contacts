@@ -5,7 +5,7 @@ export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
   const { users } = useLoaderData();
 
-  const usersData = users.map(({ id, fullName, username }) => ({
+  const tableData = users.map(({ id, fullName, username }) => ({
     id,
     fullName,
     username,
@@ -49,7 +49,7 @@ export default function Root() {
           </button>
         </Form>
 
-        <Outlet context={{ data: usersData }} />
+        <Outlet context={{ data: users, tableData }} />
       </main>
     </>
   );
