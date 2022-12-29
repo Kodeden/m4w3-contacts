@@ -18,19 +18,32 @@ export default function Root() {
         Contacts
       </h1>
       <main className="flex flex-col gap-y-4">
-        <form className="flex flex-col items-center gap-y-4 border-y py-4">
-          <div className="flex gap-x-4">
-            <TextInput id="fullName" pattern={/^[a-zA-Z]+$]/} />
-            <TextInput id="username" />
-            <TextInput id="phrase" />
-            <TextInput
-              id="avatar"
-              type="url"
-              placeholder="Enter URL for Avatar"
-            />
-          </div>
+        <form className="flex flex-col items-center border-y" method="post">
+          <fieldset>
+            <legend className="my-4 w-full text-center font-semibold">
+              Create a New Contact (all fields required)
+            </legend>
+            <div className="flex flex-col gap-4 md:flex-row">
+              <TextInput
+                id="fullName"
+                pattern="\w(\s?\w)*"
+                placeholder="Full Name (e.g. John Doe)"
+              />
+              <TextInput
+                id="username"
+                pattern="\w{3,16}"
+                placeholder="Username (3-16 chars)"
+              />
+              <TextInput id="phrase" />
+              <TextInput
+                id="avatar"
+                type="url"
+                placeholder="Enter URL for Avatar"
+              />
+            </div>
+          </fieldset>
           <button
-            className="w-max rounded-md bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600"
+            className="my-6 w-max rounded-md bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600"
             type="submit"
           >
             Submit
