@@ -16,7 +16,7 @@ export default function Root() {
       <h1 className="mt-4 mb-8 text-center text-3xl font-bold underline">
         <Link to="/">Contacts</Link>
       </h1>
-      <main className="flex flex-col gap-y-4">
+      <main className="mx-8 flex flex-col gap-y-4">
         <Form className="flex flex-col items-center border-y" method="post">
           <fieldset>
             <legend className="my-4 w-full text-center font-semibold">
