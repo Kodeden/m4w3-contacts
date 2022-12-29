@@ -1,6 +1,6 @@
-import { useLoaderData } from "react-router-dom";
-import Table from "../components/Table/Table";
+import { Form, useLoaderData } from "react-router-dom";
 import { TextInput } from "../components/Form";
+import Table from "../components/Table/Table";
 
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
@@ -18,7 +18,7 @@ export default function Root() {
         Contacts
       </h1>
       <main className="flex flex-col gap-y-4">
-        <form className="flex flex-col items-center border-y" method="post">
+        <Form className="flex flex-col items-center border-y" method="post">
           <fieldset>
             <legend className="my-4 w-full text-center font-semibold">
               Create a New Contact (all fields required)
@@ -48,7 +48,7 @@ export default function Root() {
           >
             Submit
           </button>
-        </form>
+        </Form>
 
         <Table headers={Object.keys(usersData[0])} data={usersData} />
       </main>
