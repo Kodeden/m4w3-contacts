@@ -7,7 +7,7 @@ export default function Table({ headers, data }) {
   const { currentData, maxPage, dispatchPagination } = usePagination(data);
 
   return (
-    <table className="container mx-auto max-w-max table-auto">
+    <table className="container mx-auto max-w-max table-fixed md:table-auto">
       <TH headers={headers} />
       <TBody data={currentData} />
       <tfoot>
