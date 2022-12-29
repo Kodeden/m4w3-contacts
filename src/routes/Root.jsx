@@ -1,4 +1,4 @@
-import { Form, Outlet, useLoaderData } from "react-router-dom";
+import { Form, Link, Outlet, useLoaderData } from "react-router-dom";
 import { TextInput } from "../components/Form";
 
 export default function Root() {
@@ -14,7 +14,7 @@ export default function Root() {
   return (
     <>
       <h1 className="mt-4 mb-8 text-center text-3xl font-bold underline">
-        Contacts
+        <Link to="/">Contacts</Link>
       </h1>
       <main className="flex flex-col gap-y-4">
         <Form className="flex flex-col items-center border-y" method="post">
