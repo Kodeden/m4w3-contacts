@@ -1,6 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import Table from "../components/Table/Table";
+import User from "../components/User";
 import Root from "../routes/Root";
 import FAKE_USERS from "./fixtures/users.json";
 
@@ -15,6 +17,16 @@ const routes = [
     path: "/",
     element: <Root />,
     loader: () => Promise.resolve({ users: FAKE_USERS }),
+    children: [
+      {
+        path: "",
+        element: <Table />,
+      },
+      {
+        path: ":id",
+        element: <User />,
+      },
+    ],
   },
 ];
 
@@ -49,6 +61,71 @@ describe("Using default of 10 per page", () => {
       // ⚠️ Use 'queryBy' to assert that an element is not present
       expect(screen.queryByText(firstUser.fullName)).toBeNull();
       expect(screen.queryByText(firstUser.username)).toBeNull();
+    });
+  });
+});
+
+describe("User navigation", () => {
+  // We navigate to the first user, so next is the second user and previous is the last user
+  const nextUser = FAKE_USERS[1];
+  const prevUser = FAKE_USERS[FAKE_USERS.length - 1];
+
+  it("redirects to clicked user", async () => {
+    const user = userEvent.setup();
+    render(<RouterProvider router={router} />);
+
+    // We click on the first user's id 'td' element
+    // ⚠️ id will be truncated to 24 characters
+    const firstUserId = await screen.findByRole("link", {
+      name: new RegExp(firstUser.id.substring(0, 24)),
+    });
+
+    await user.click(firstUserId);
+
+    // wait for appearance inside an assertion
+    await waitFor(() => {
+      // It should show their username (isn't in the initial table)
+      expect(screen.getByText(firstUser.username)).toBeInTheDocument();
+    });
+  });
+
+  describe("navigation between users", () => {
+    beforeEach(() => {
+      router.navigate("/" + firstUser.id);
+    });
+
+    it("navigates to next user", async () => {
+      const user = userEvent.setup();
+      render(<RouterProvider router={router} />);
+
+      // We click 'next' link
+      const nextLink = await screen.findByRole("link", {
+        name: /next/i,
+      });
+
+      await user.click(nextLink);
+
+      // wait for appearance inside an assertion
+      await waitFor(() => {
+        expect(screen.getByText(nextUser.username)).toBeInTheDocument();
+      });
+    });
+
+    it("navigates to previous user", async () => {
+      const user = userEvent.setup();
+      render(<RouterProvider router={router} />);
+
+      // We click 'previous' link
+      const prevLink = await screen.findByRole("link", {
+        name: /prev/i,
+      });
+
+      await user.click(prevLink);
+
+      // wait for appearance inside an assertion
+      await waitFor(() => {
+        expect(screen.getByText(prevUser.username)).toBeInTheDocument();
+      });
     });
   });
 });
