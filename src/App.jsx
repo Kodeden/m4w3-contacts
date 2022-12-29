@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import Root from "./routes/Root";
 import apiService from "./services/api.service";
+import Table from "./components/Table/Table";
 
 const createUser = async ({ request }) => {
   const fd = await request.formData();
@@ -23,6 +24,12 @@ const router = createBrowserRouter([
     element: <Root />,
     loader: loadUsers,
     action: createUser,
+    children: [
+      {
+        path: "",
+        element: <Table />,
+      },
+    ],
   },
   {
     path: "*",

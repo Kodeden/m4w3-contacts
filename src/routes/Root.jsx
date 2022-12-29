@@ -1,6 +1,5 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, Outlet, useLoaderData } from "react-router-dom";
 import { TextInput } from "../components/Form";
-import Table from "../components/Table/Table";
 
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
@@ -50,7 +49,7 @@ export default function Root() {
           </button>
         </Form>
 
-        <Table headers={Object.keys(usersData[0])} data={usersData} />
+        <Outlet context={{ data: usersData }} />
       </main>
     </>
   );

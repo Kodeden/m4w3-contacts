@@ -1,10 +1,13 @@
 import usePagination from "@/hooks/usePagination";
-import PropTypes from "prop-types";
+import { useOutletContext } from "react-router-dom";
 import TBody from "./TBody";
 import TH from "./TH";
 
-export default function Table({ headers, data }) {
+export default function Table() {
+  const { data } = useOutletContext();
   const { currentData, maxPage, dispatchPagination } = usePagination(data);
+
+  const headers = Object.keys(data[0]);
 
   return (
     <table className="container mx-auto max-w-max table-fixed md:table-auto">
@@ -35,13 +38,3 @@ export default function Table({ headers, data }) {
     </table>
   );
 }
-
-Table.defaultProps = {
-  headers: [],
-  data: [],
-};
-
-Table.propTypes = {
-  headers: PropTypes.arrayOf(PropTypes.string),
-  data: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
-};
