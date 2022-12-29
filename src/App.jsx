@@ -6,6 +6,7 @@ import {
 import Root from "./routes/Root";
 import apiService from "./services/api.service";
 import Table from "./components/Table/Table";
+import User from "./components/User";
 
 const createUser = async ({ request }) => {
   const fd = await request.formData();
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Table />,
+      },
+      {
+        path: ":id",
+        element: <User />,
       },
     ],
   },

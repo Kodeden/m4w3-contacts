@@ -5,7 +5,7 @@ export default function TBody({ data }) {
   return (
     <tbody>
       {data.map((dataRow) => (
-        <TR key={dataRow.id} dataRow={dataRow} />
+        <TR key={dataRow.id} dataRow={dataRow} id={dataRow.id} />
       ))}
     </tbody>
   );
