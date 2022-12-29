@@ -12,3 +12,12 @@ export const getCurrentPage = (currentPage, operation) => {
     ? currentPage - 1
     : currentPage;
 };
+
+export const getNavIds = (ids, currentId) => {
+  const currentIndex = ids.indexOf(currentId);
+
+  return {
+    prevId: ids[currentIndex - 1] || ids[ids.length - 1],
+    nextId: ids[currentIndex + 1] || ids[0],
+  };
+};
