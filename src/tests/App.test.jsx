@@ -1,8 +1,9 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { RouterProvider, createMemoryRouter, redirect } from "react-router-dom";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import Table from "../components/Table/Table";
 import User from "../components/User";
+import Delete from "../routes/Delete";
 import Root from "../routes/Root";
 
 // 20 users (counted by id)
@@ -24,6 +25,10 @@ const routes = [
       {
         path: ":id",
         element: <User />,
+      },
+      {
+        path: "/delete/:id",
+        element: <Delete />,
       },
     ],
   },
@@ -138,6 +143,29 @@ describe("User navigation", () => {
       await waitFor(() => {
         expect(screen.getByText(prevUser.username)).toBeInTheDocument();
       });
+    });
+  });
+});
+
+describe("Delete 🔥", () => {
+  it("displays confirmation dialog for the user", async () => {
+    const user = userEvent.setup();
+    router.navigate("/");
+    render(<RouterProvider router={router} />);
+
+    // ⚠️ MUST USE 'findAllBy'
+    const deleteLink = await screen.findAllByRole("link", {
+      name: /delete/i,
+    });
+
+    // // We click the first user's delete link
+    await user.click(deleteLink[0]);
+
+    const dialog = await screen.findByRole("dialog");
+
+    // wait for appearance inside an assertion
+    await waitFor(() => {
+      expect(within(dialog).getByText(firstUser.fullName)).toBeInTheDocument();
     });
   });
 });
