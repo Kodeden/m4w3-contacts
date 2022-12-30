@@ -7,6 +7,7 @@ import Table from "./components/Table/Table";
 import User from "./components/User";
 import Root from "./routes/Root";
 import apiService from "./services/api.service";
+import Delete from "./routes/Delete";
 
 const createEditUser = async ({ request }) => {
   const fd = await request.formData();
@@ -47,8 +48,17 @@ const router = createBrowserRouter([
         path: ":id",
         element: <User />,
       },
+      {
+        path: "/delete/:id",
+        element: <Delete />,
+        action: async ({ params }) => {
+          await apiService.delete(params.id);
+          return redirect("/");
+        },
+      },
     ],
   },
+
   {
     path: "*",
     element: redirect("/"),
