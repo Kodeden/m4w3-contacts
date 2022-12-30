@@ -1,15 +1,14 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { getNodeText, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { RouterProvider, createMemoryRouter, redirect } from "react-router-dom";
 import Table from "../components/Table/Table";
 import User from "../components/User";
 import Root from "../routes/Root";
+
+// 20 users (counted by id)
 import FAKE_USERS from "./fixtures/users.json";
 
-// "fullName": "Lana Boyle V",
 const firstUser = FAKE_USERS[0];
-
-// "fullName": "Mrs. Ricardo McCullough",
 const firstUserPage2 = FAKE_USERS[10];
 
 const routes = [
@@ -17,6 +16,17 @@ const routes = [
     path: "/",
     element: <Root />,
     loader: () => Promise.resolve({ users: FAKE_USERS }),
+    action: async ({ request }) => {
+      const fd = await request.formData();
+      const newUser = Object.fromEntries(fd.entries());
+      const testId = "test-123";
+
+      // Router maintains the state of the data
+      FAKE_USERS.push({ id: testId, ...newUser });
+
+      // Must return a redirect action
+      return redirect("/" + testId);
+    },
     children: [
       {
         path: "",
@@ -125,6 +135,39 @@ describe("User navigation", () => {
       await waitFor(() => {
         expect(screen.getByText(prevUser.username)).toBeInTheDocument();
       });
+    });
+  });
+});
+
+describe("Create", () => {
+  it("navigates to a newly created user", async () => {
+    const newUser = {
+      fullName: "Test User",
+      username: "testuser",
+      phrase: "Test Phrase",
+      avatarUrl:
+        "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5",
+    };
+
+    const user = userEvent.setup();
+    render(<RouterProvider router={router} />);
+
+    const fullNameInput = screen.getByLabelText(/full name/i);
+    const usernameInput = screen.getByLabelText(/username/i);
+    const phraseInput = screen.getByLabelText(/phrase/i);
+    const urlInput = screen.getByLabelText(/avatar/i);
+    const submitBtn = screen.getByRole("button", { name: /submit/i });
+
+    await user.type(fullNameInput, newUser.fullName);
+    await user.type(usernameInput, newUser.username);
+    await user.type(phraseInput, newUser.phrase);
+    await user.type(urlInput, newUser.avatarUrl);
+
+    await user.click(submitBtn);
+
+    // wait for appearance inside an assertion
+    await waitFor(() => {
+      expect(screen.getByText(newUser.username)).toBeInTheDocument();
     });
   });
 });
