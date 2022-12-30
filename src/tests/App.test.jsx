@@ -75,9 +75,8 @@ describe("User navigation", () => {
     render(<RouterProvider router={router} />);
 
     // We click on the first user's id 'td' element
-    // ⚠️ id will be truncated to 24 characters
     const firstUserId = await screen.findByRole("link", {
-      name: new RegExp(firstUser.id.substring(0, 24)),
+      name: firstUser.id,
     });
 
     await user.click(firstUserId);
