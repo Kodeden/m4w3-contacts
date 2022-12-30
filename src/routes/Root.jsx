@@ -38,8 +38,10 @@ export default function Root() {
             const form = e.target;
             const fd = new FormData(form);
             if (currentUser) fd.set("id", currentUser.id);
-            submit(fd, { method: "post" });
+
+            // Clear the form before submitting
             form.reset();
+            submit(fd, { method: "post" });
           }}
         >
           <fieldset>
