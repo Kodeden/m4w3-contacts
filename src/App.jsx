@@ -6,7 +6,7 @@ import {
 import Table from "./components/Table/Table";
 import User from "./components/User";
 import Root from "./routes/Root";
-import apiService from "./services/api.service";
+import apiService from "./api.service";
 import Delete from "./routes/Delete";
 
 const createEditUser = async ({ request }) => {
@@ -58,7 +58,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
   {
     path: "*",
     element: redirect("/"),
