@@ -8,12 +8,16 @@ import User from "./components/User";
 import Root from "./routes/Root";
 import apiService from "./services/api.service";
 
-const createUser = async ({ request }) => {
+const createEditUser = async ({ request }) => {
   const fd = await request.formData();
-  const newUser = Object.fromEntries(fd.entries());
+
+  // 'id' may or may not be defined depending on whether we are creating or updating
+  const createdEditedUser = Object.fromEntries(fd.entries());
 
   try {
-    const { id } = await apiService.create(newUser);
+    const { id } = createdEditedUser.id
+      ? await apiService.update(createdEditedUser.id, createdEditedUser)
+      : await apiService.create(createdEditedUser);
 
     // Must return a redirect action
     return redirect(`/${id}`);
@@ -33,7 +37,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     loader: loadUsers,
-    action: createUser,
+    action: createEditUser,
     children: [
       {
         path: "",
