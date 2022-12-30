@@ -1,7 +1,14 @@
 import startCase from "lodash.startcase";
 import PropTypes from "prop-types";
 
-export default function TextInput({ label, id, pattern, placeholder, type }) {
+export default function TextInput({
+  defaultValue,
+  label,
+  id,
+  pattern,
+  placeholder,
+  type,
+}) {
   return (
     <>
       <label htmlFor={id} className="sr-only">
@@ -16,6 +23,7 @@ export default function TextInput({ label, id, pattern, placeholder, type }) {
         required
         pattern={pattern || null}
         placeholder={placeholder || startCase(id)}
+        defaultValue={defaultValue}
       />
     </>
   );
@@ -26,6 +34,7 @@ TextInput.defaultProps = {
 };
 
 TextInput.propTypes = {
+  defaultValue: PropTypes.string,
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
   pattern: PropTypes.oneOfType([

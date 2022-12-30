@@ -12,10 +12,6 @@ export default function TR({ dataRow, id }) {
           </Link>
         </td>
       ))}
-      <td className="px-4 text-orange-500">
-        <Link to={`/edit/${id}`}>Edit</Link>
-      </td>
-
       <td className="px-4 text-red-500">
         <Link to={`/delete/${id}`}>Delete</Link>
       </td>

@@ -1,9 +1,21 @@
-import { Form, Link, Outlet, useLoaderData, useSubmit } from "react-router-dom";
+import {
+  Form,
+  Link,
+  Outlet,
+  useLoaderData,
+  useParams,
+  useSubmit,
+} from "react-router-dom";
 import { TextInput } from "../components/Form";
 
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
   const { users } = useLoaderData();
+
+  // If we have this, we will populate the form with the data of the current user
+  const { id } = useParams();
+  const currentUser = users.find((user) => user.id === id);
+
   const submit = useSubmit();
 
   const tableData = users.map(({ id, fullName, username }) => ({
@@ -35,17 +47,20 @@ export default function Root() {
                 id="fullName"
                 pattern="\w(\s?\w)*"
                 placeholder="Full Name (e.g. John Doe)"
+                defaultValue={currentUser?.fullName}
               />
               <TextInput
                 id="username"
                 pattern="\w{3,16}"
                 placeholder="Username (3-16 chars)"
+                defaultValue={currentUser?.username}
               />
-              <TextInput id="phrase" />
+              <TextInput id="phrase" defaultValue={currentUser?.phrase} />
               <TextInput
                 id="avatar"
                 type="url"
                 placeholder="Enter URL for Avatar"
+                defaultValue={currentUser?.avatar}
               />
             </div>
           </fieldset>
@@ -53,7 +68,7 @@ export default function Root() {
             className="my-6 w-max rounded-md bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600"
             type="submit"
           >
-            Submit
+            {currentUser ? "Edit" : "Submit"}
           </button>
         </Form>
 
