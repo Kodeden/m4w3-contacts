@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export default function Dialog({ children }) {
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
@@ -5,3 +7,10 @@ export default function Dialog({ children }) {
     </div>
   );
 }
+
+Dialog.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+};
