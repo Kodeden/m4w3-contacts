@@ -1,9 +1,10 @@
-import { Form, Link, Outlet, useLoaderData } from "react-router-dom";
+import { Form, Link, Outlet, useLoaderData, useSubmit } from "react-router-dom";
 import { TextInput } from "../components/Form";
 
 export default function Root() {
   // useLoaderData() is a hook that returns the data - be sure to DESTRUCTURE it!
   const { users } = useLoaderData();
+  const submit = useSubmit();
 
   const tableData = users.map(({ id, fullName, username }) => ({
     id,
@@ -17,7 +18,14 @@ export default function Root() {
         <Link to="/">Contacts</Link>
       </h1>
       <main className="mx-8 flex flex-col gap-y-4">
-        <Form className="flex flex-col items-center border-y" method="post">
+        <Form
+          className="flex flex-col items-center border-y"
+          onSubmit={(e) => {
+            e.preventDefault();
+            submit(e.target, { method: "post" });
+            e.target.reset();
+          }}
+        >
           <fieldset>
             <legend className="my-4 w-full text-center font-semibold">
               Create a New Contact (all fields required)
