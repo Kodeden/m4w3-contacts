@@ -10,9 +10,13 @@ export default function Delete() {
 
   return (
     <Dialog>
-      <h2 className="text-2xl font-bold">Delete User</h2>
-      <p>Are you sure you want to delete this user?</p>
-      <p className="font-bold">{user2Delete.fullName}</p>
+      <h2 className="text-2xl font-bold" id="dialogTitle">
+        Delete User
+      </h2>
+      <strong id="dialogDesc">
+        <p>Are you sure you want to delete this user?</p>
+        <p className="italic">{user2Delete.fullName}</p>
+      </strong>
       <div className="flex justify-end">
         <button
           className="rounded-lg bg-red-500 px-4 py-2 text-white"
