@@ -34,8 +34,12 @@ export default function Root() {
           className="flex flex-col items-center border-y"
           onSubmit={(e) => {
             e.preventDefault();
-            submit(e.target, { method: "post" });
-            e.target.reset();
+
+            const form = e.target;
+            const fd = new FormData(form);
+            if (currentUser) fd.set("id", currentUser.id);
+            submit(fd, { method: "post" });
+            form.reset();
           }}
         >
           <fieldset>
