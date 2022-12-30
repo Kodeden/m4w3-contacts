@@ -14,6 +14,8 @@ const createUser = async ({ request }) => {
 
   try {
     const { id } = await apiService.create(newUser);
+
+    // Must return a redirect action
     return redirect(`/${id}`);
   } catch (error) {
     // TODO: redirect to error page
