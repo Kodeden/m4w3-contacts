@@ -10,14 +10,14 @@ import apiService from "./services/api.service";
 
 const createEditUser = async ({ request }) => {
   const fd = await request.formData();
-
-  // 'id' may or may not be defined depending on whether we are creating or updating
   const createdEditedUser = Object.fromEntries(fd.entries());
 
   try {
-    const { id } = createdEditedUser.id
-      ? await apiService.update(createdEditedUser.id, createdEditedUser)
-      : await apiService.create(createdEditedUser);
+    const { id } =
+      // 'id' may or may not be defined depending on whether we are creating or updating
+      createdEditedUser.id
+        ? await apiService.update(createdEditedUser.id, createdEditedUser)
+        : await apiService.create(createdEditedUser);
 
     // Must return a redirect action
     return redirect(`/${id}`);
