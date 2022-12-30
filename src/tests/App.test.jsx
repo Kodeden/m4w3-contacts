@@ -140,7 +140,6 @@ describe("User navigation", () => {
 });
 
 describe("Create", () => {
-  it("navigates to a newly created user", async () => {
     const newUser = {
       fullName: "Test User",
       username: "testuser",
@@ -149,6 +148,11 @@ describe("Create", () => {
         "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5",
     };
 
+  beforeEach(() => {
+    router.navigate("/");
+  });
+
+  it("navigates to a newly created user", async () => {
     const user = userEvent.setup();
     render(<RouterProvider router={router} />);
 
@@ -167,7 +171,9 @@ describe("Create", () => {
 
     // wait for appearance inside an assertion
     await waitFor(() => {
-      expect(screen.getByText(newUser.username)).toBeInTheDocument();
+      // ⚠️ Has quotation marks around it!
+      // Only appears on the user page
+      expect(screen.getByText(`"${newUser.phrase}"`)).toBeInTheDocument();
     });
   });
 });
