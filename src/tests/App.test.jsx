@@ -1,4 +1,4 @@
-import { getNodeText, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter, redirect } from "react-router-dom";
 import Table from "../components/Table/Table";
@@ -140,17 +140,13 @@ describe("User navigation", () => {
 });
 
 describe("Create", () => {
-    const newUser = {
-      fullName: "Test User",
-      username: "testuser",
-      phrase: "Test Phrase",
-      avatarUrl:
-        "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5",
-    };
-
-  beforeEach(() => {
-    router.navigate("/");
-  });
+  const newUser = {
+    fullName: "Test User",
+    username: "testuser",
+    phrase: "Test Phrase",
+    avatarUrl:
+      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5",
+  };
 
   it("navigates to a newly created user", async () => {
     const user = userEvent.setup();
