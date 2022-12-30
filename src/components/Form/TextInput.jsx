@@ -5,7 +5,7 @@ export default function TextInput({ label, id, pattern, placeholder, type }) {
   return (
     <>
       <label htmlFor={id} className="sr-only">
-        {label || id}
+        {startCase(label) || startCase(id)}
       </label>
       <input
         type={type}
