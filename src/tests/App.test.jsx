@@ -87,6 +87,20 @@ describe("User navigation", () => {
     });
   });
 
+  it("renders the form with the current user's data", async () => {
+    render(<RouterProvider router={router} />);
+
+    const fullNameInput = await screen.findByLabelText(/full name/i);
+    const usernameInput = screen.getByLabelText(/username/i);
+    const phraseInput = screen.getByLabelText(/phrase/i);
+    const urlInput = screen.getByLabelText(/avatar/i);
+
+    expect(fullNameInput).toHaveValue(firstUser.fullName);
+    expect(usernameInput).toHaveValue(firstUser.username);
+    expect(phraseInput).toHaveValue(firstUser.phrase);
+    expect(urlInput).toHaveValue(firstUser.avatarUrl);
+  });
+
   describe("navigation between users", () => {
     beforeEach(() => {
       router.navigate("/" + firstUser.id);
@@ -107,20 +121,6 @@ describe("User navigation", () => {
       await waitFor(() => {
         expect(screen.getByText(nextUser.username)).toBeInTheDocument();
       });
-    });
-
-    it("renders the form with the current user's data", async () => {
-      render(<RouterProvider router={router} />);
-
-      const fullNameInput = await screen.findByLabelText(/full name/i);
-      const usernameInput = screen.getByLabelText(/username/i);
-      const phraseInput = screen.getByLabelText(/phrase/i);
-      const urlInput = screen.getByLabelText(/avatar/i);
-
-      expect(fullNameInput).toHaveValue(firstUser.fullName);
-      expect(usernameInput).toHaveValue(firstUser.username);
-      expect(phraseInput).toHaveValue(firstUser.phrase);
-      expect(urlInput).toHaveValue(firstUser.avatarUrl);
     });
 
     it("navigates to previous user", async () => {
